@@ -1,0 +1,72 @@
+---
+title: "Thunder"
+name: "Jack Miller"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r packages}
+library(broom)
+library(knitr)
+library(tidyverse)
+library(ggfortify)
+library(patchwork)
+```
+
+```{r}
+shots <- read_csv("shots_data.csv")
+```
+
+```{r}
+team_a_shots <- shots %>% 
+  mutate(type = case_when(
+    y > 7.8 & (x^2 + y^2) > 529 ~ "NC3",
+     y < 7.8 & abs(x) > 22 ~ "C3",
+    TRUE ~ "2PT"
+  )) %>% 
+  mutate(type = factor(type)) %>% 
+  filter(team == "Team A")
+
+team_b_shots <- shots %>% 
+  mutate(type = case_when(
+    y > 7.8 & (x^2 + y^2) > 529 ~ "NC3",
+     y < 7.8 & abs(x) > 22 ~ "C3",
+    TRUE ~ "2PT"
+  )) %>% 
+  mutate(type = factor(type)) %>% 
+  filter(team == "Team B")
+```
+
+```{r}
+team_a_stats <- team_a_shots %>% 
+  group_by(type) %>% 
+  summarize(shots = n(), made = sum(fgmade)) %>% 
+  mutate(shot_dist = round(shots / sum(shots), 3)) %>% 
+  mutate(efgmult = case_when(
+    type == "C3" | type == "NC3" ~ 0.5,
+    TRUE ~ 1
+  )) %>% 
+  mutate(efg = round((efgmult * made) / shots, 3)) %>% 
+  select(type,shot_dist,efg)
+team_a_stats
+```
+
+```{r}
+team_b_stats <- team_b_shots %>% 
+  group_by(type) %>% 
+  summarize(shots = n(), made = sum(fgmade)) %>% 
+  mutate(shot_dist = round(shots / sum(shots), 3)) %>% 
+  mutate(efgmult = case_when(
+    type == "C3" | type == "NC3" ~ 0.5,
+    TRUE ~ 1
+  )) %>% 
+  mutate(efg = round((efgmult * made) / shots, 3)) %>% 
+  select(type,shot_dist,efg)
+team_b_stats 
+```
+
