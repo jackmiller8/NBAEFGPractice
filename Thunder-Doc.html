@@ -196,7 +196,7 @@ library(patchwork)</code></pre>
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code>team_a_shots &lt;- shots %&gt;% 
   mutate(type = case_when(
-    y &gt; 7.8 &amp; (x^2 + y^2) &gt; 529 ~ &quot;NC3&quot;,
+    y &gt; 7.8 &amp; (x^2 + y^2) &gt; 564.0625 ~ &quot;NC3&quot;,
      y &lt; 7.8 &amp; abs(x) &gt; 22 ~ &quot;C3&quot;,
     TRUE ~ &quot;2PT&quot;
   )) %&gt;% 
@@ -205,7 +205,7 @@ library(patchwork)</code></pre>
 
 team_b_shots &lt;- shots %&gt;% 
   mutate(type = case_when(
-    y &gt; 7.8 &amp; (x^2 + y^2) &gt; 529 ~ &quot;NC3&quot;,
+    y &gt; 7.8 &amp; (x^2 + y^2) &gt; 564.0625 ~ &quot;NC3&quot;,
      y &lt; 7.8 &amp; abs(x) &gt; 22 ~ &quot;C3&quot;,
     TRUE ~ &quot;2PT&quot;
   )) %&gt;% 
@@ -242,9 +242,9 @@ team_b_stats </code></pre>
 <pre><code>## # A tibble: 3 × 3
 ##   type  shot_dist   efg
 ##   &lt;fct&gt;     &lt;dbl&gt; &lt;dbl&gt;
-## 1 2PT       0.579 0.463
+## 1 2PT       0.582 0.46 
 ## 2 C3        0.075 0.119
-## 3 NC3       0.346 0.18</code></pre>
+## 3 NC3       0.343 0.182</code></pre>
 </div>
 
 

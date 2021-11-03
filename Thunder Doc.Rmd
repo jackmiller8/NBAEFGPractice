@@ -25,7 +25,7 @@ shots <- read_csv("shots_data.csv")
 ```{r}
 team_a_shots <- shots %>% 
   mutate(type = case_when(
-    y > 7.8 & (x^2 + y^2) > 529 ~ "NC3",
+    y > 7.8 & (x^2 + y^2) > 564.0625 ~ "NC3",
      y < 7.8 & abs(x) > 22 ~ "C3",
     TRUE ~ "2PT"
   )) %>% 
@@ -34,7 +34,7 @@ team_a_shots <- shots %>%
 
 team_b_shots <- shots %>% 
   mutate(type = case_when(
-    y > 7.8 & (x^2 + y^2) > 529 ~ "NC3",
+    y > 7.8 & (x^2 + y^2) > 564.0625 ~ "NC3",
      y < 7.8 & abs(x) > 22 ~ "C3",
     TRUE ~ "2PT"
   )) %>% 
